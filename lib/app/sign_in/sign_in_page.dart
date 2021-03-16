@@ -1,34 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'providers.dart';
-import 'register_page_contents.dart';
-import 'register_view_model.dart';
+import '../providers.dart';
+import 'sign_in_page_contents.dart';
+import 'sign_in_view_model.dart';
 
-class RegisterPage extends StatelessWidget {
+class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    print('Register Page');
+    print('SignInPage');
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Register'),
+          title: const Text('Sign In'),
         ),
-        body: ProviderListener<RegisterViewModel>(
-          provider: registerModelProvider,
+        body: ProviderListener<SignInViewModel>(
+          provider: signInModelProvider,
           onChange: (context, viewModel) async {
-            if (viewModel.hasError) {
+            if (viewModel.getHasError) {
               return await showDialog(
                 context: context,
                 builder: (_) => AlertDialog(
                   title: Text('Error'),
-                  content: Text(viewModel.errorMessage),
+                  content: Text(viewModel.getErrorMessage),
                   actions: [
                     RaisedButton(
-                      onPressed: () => Navigator.pop(context),
+                      onPressed: () => Navigator.of(context).pop(),
                       child: Text('OK'),
                     ),
                   ],
@@ -38,10 +39,10 @@ class RegisterPage extends StatelessWidget {
           },
           child: Consumer(
             builder: (context, watch, child) {
-              final state = watch(registerModelProvider);
-              return state.isLoading
-                  ? Center(child: CircularProgressIndicator())
-                  : RegisterPageContents(viewModel: state);
+              final state = watch(signInModelProvider);
+              return state.getIsLoading
+                  ? Center(child: const CircularProgressIndicator())
+                  : SignInPageContents(viewModel: state);
             },
           ),
         ),

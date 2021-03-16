@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_auth_test/register_view_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'sign_in_view_model.dart';
+import 'register/register_view_model.dart';
+import 'sign_in/sign_in_view_model.dart';
 
 final firebaseAuthProvider = Provider((ref) => FirebaseAuth.instance);
 

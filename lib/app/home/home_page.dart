@@ -1,4 +1,4 @@
-import 'package:firebase_auth_test/providers.dart';
+import 'package:firebase_auth_test/app/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

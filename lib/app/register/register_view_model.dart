@@ -31,10 +31,6 @@ class RegisterViewModel extends ChangeNotifier {
         email: email,
         password: password,
       );
-
-      if(firebaseAuth.currentUser != null) {
-        _email = null; //once we have logged in, clear state we dont need to remember
-      }
     } on FirebaseAuthException catch (e) {
       _hasError = true;
       switch (e.code) {
@@ -59,5 +55,12 @@ class RegisterViewModel extends ChangeNotifier {
       _isLoading = false;
       notifyListeners();
     }
+  }
+
+  resetState() {
+    _hasError = false;
+    _isLoading = true;
+    _errorMessage = null;
+    _email = null;
   }
 }

@@ -1,10 +1,10 @@
-import 'package:firebase_auth_test/auth_widget.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'home_page.dart';
-import 'sign_in_page.dart';
+import 'app/auth_widget.dart';
+import 'app/home/home_page.dart';
+import 'app/sign_in/sign_in_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
