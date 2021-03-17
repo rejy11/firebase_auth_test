@@ -118,27 +118,50 @@ class _SignInPageContentsState extends State<SignInPageContents> {
                 buttonText: 'Sign In',
               ),
             ),
-            SizedBox(
-              height: 20,
-            ),
+            SizedBox(height: 10),
             Opacity(
               opacity: 0.8,
-              child: Text('Or'),
+              child: Text('Or sign in with:'),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
-              child: Container(
-                width: 120,
-                child: SignInButton(
-                  Buttons.Google,
-                  padding: EdgeInsets.all(5),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+            SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+                  child: Container(
+                    width: 120,
+                    child: SignInButton(
+                      Buttons.Google,
+                      padding: EdgeInsets.all(5),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      text: 'Google',
+                      onPressed: widget.viewModel.signInWithGoogle,
+                    ),
                   ),
-                  text: 'Sign In',
-                  onPressed: widget.viewModel.signInWithGoogle,
                 ),
-              ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+                  child: Container(
+                    width: 120,
+                    child: SignInButton(
+                      Buttons.GitHub,
+                      padding: EdgeInsets.only(
+                          top: 15, bottom: 15, left: 5, right: 10),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      text: 'GitHub',
+                      onPressed: () =>
+                          widget.viewModel.signInWithGitHub(context),
+                    ),
+                  ),
+                ),
+              ],
             ),
             SizedBox(height: 100),
             Row(

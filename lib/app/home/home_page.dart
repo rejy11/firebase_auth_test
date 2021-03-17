@@ -8,6 +8,8 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final firebaseAuth = context.read(firebaseAuthProvider);
     final user = firebaseAuth.currentUser;
+    final displayName = user.displayName;
+    final email = user.email;
 
     return Scaffold(
       appBar: AppBar(
@@ -16,7 +18,8 @@ class HomePage extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            Text(user.email),
+            displayName != null ? Text(displayName) : Container(),
+            email != null ? Text(user.email) : Container(),
             RaisedButton(
               child: Text('Log Out'),
               onPressed: () async {
