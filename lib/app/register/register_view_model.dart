@@ -19,6 +19,8 @@ class RegisterViewModel extends ChangeNotifier {
   Future<void> registerUser({
     @required String email,
     @required String password,
+    @required String confirmPassword,
+    String displayName,
   }) async {
     try {
       _hasError = false;
@@ -27,10 +29,18 @@ class RegisterViewModel extends ChangeNotifier {
       _email = email;
       notifyListeners();
 
+      if (password != confirmPassword) {
+        throw PasswordsDontMatchException();
+      }
+
       await firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
+      if (displayName != null) {
+        final user = firebaseAuth.currentUser;
+        user.updateProfile(displayName: displayName);
+      }
     } on FirebaseAuthException catch (e) {
       _hasError = true;
       switch (e.code) {
@@ -48,6 +58,9 @@ class RegisterViewModel extends ChangeNotifier {
           break;
         default:
       }
+    } on PasswordsDontMatchException {
+      _hasError = true;
+      _errorMessage = 'The passwords entered do not match';
     } catch (e) {
       _hasError = true;
       _errorMessage = e.toString();
@@ -59,8 +72,10 @@ class RegisterViewModel extends ChangeNotifier {
 
   resetState() {
     _hasError = false;
-    _isLoading = true;
+    _isLoading = false;
     _errorMessage = null;
     _email = null;
   }
 }
+
+class PasswordsDontMatchException implements Exception {}

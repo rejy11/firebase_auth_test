@@ -3,28 +3,28 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../common_widgets/loading_overlay_widget.dart';
 import '../providers.dart';
-import 'sign_in_page_contents.dart';
-import 'sign_in_view_model.dart';
+import 'register_page_contents.dart';
+import 'register_view_model.dart';
 
-class SignInPage extends StatelessWidget {
+class RegisterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    print('SignInPage');
+    print('RegisterPage');
 
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        body: ProviderListener<SignInViewModel>(
-          provider: signInModelProvider,
+        body: ProviderListener<RegisterViewModel>(
+          provider: registerModelProvider,
           onChange: (context, viewModel) async {
-            if (viewModel.getHasError) {
+            if (viewModel.hasError) {
               return await showDialog(
                 context: context,
                 builder: (_) => AlertDialog(
                   title: Text('Error'),
-                  content: Text(viewModel.getErrorMessage),
+                  content: Text(viewModel.errorMessage),
                   actions: [
                     RaisedButton(
                       onPressed: () => Navigator.of(context).pop(),
@@ -38,13 +38,13 @@ class SignInPage extends StatelessWidget {
           child: SafeArea(
             child: Consumer(
               builder: (context, watch, child) {
-                final state = watch(signInModelProvider);
+                final state = watch(registerModelProvider);
                 return Stack(
                   children: [
-                    SignInPageContents(viewModel: state),
-                    state.getIsLoading ? LoadingOverlay() : SizedBox(),
+                    RegisterPageContents(viewModel: state),
+                    state.isLoading ? LoadingOverlay() : SizedBox(),
                   ],
-                );                
+                );
               },
             ),
           ),

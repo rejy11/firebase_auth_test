@@ -29,8 +29,23 @@ class _AuthTextFieldWidgetState extends State<AuthTextFieldWidget> {
       keyboardType:
           widget.inputType == null ? TextInputType.text : widget.inputType,
       decoration: InputDecoration(
+        isDense: true,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            width: 0.0,
+            color: Colors.white54,
+          ),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            width: 0.0,
+            color: Theme.of(context).accentColor,
+          ),
+          borderRadius: BorderRadius.circular(20),
         ),
         hintText: widget.hintText,
         hintStyle: TextStyle(
@@ -42,6 +57,7 @@ class _AuthTextFieldWidgetState extends State<AuthTextFieldWidget> {
           fontWeight: FontWeight.w300,
         ),
       ),
+      cursorColor: Theme.of(context).accentColor,
     );
   }
 }

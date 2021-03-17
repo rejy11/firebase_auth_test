@@ -21,6 +21,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        brightness: Brightness.dark,
+        primaryColor: Colors.cyan[700],
+        accentColor: Colors.amber,
+        buttonColor: Colors.cyan[700],    
+      ),
       home: AuthWidget(
         signedInBuilder: (_) => HomePage(),
         signedOutBuilder: (_) => SignInPage(),

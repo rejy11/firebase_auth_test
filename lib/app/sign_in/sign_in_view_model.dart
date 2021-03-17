@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class SignInViewModel with ChangeNotifier {
@@ -58,12 +59,21 @@ class SignInViewModel with ChangeNotifier {
   }
 
   Future<void> signInWithGoogle() async {
-    final googleUser = await GoogleSignIn().signIn();
-    final googleAuth = await googleUser.authentication;
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
-    userCredential = await auth.signInWithCredential(credential);
+    try {
+      final googleUser = await GoogleSignIn().signIn();
+      final googleAuth = await googleUser.authentication;
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+      _isLoading = true;
+      notifyListeners();
+      userCredential = await auth.signInWithCredential(credential);
+    } on Exception catch (e) {
+          // TODO
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
   }
 }
