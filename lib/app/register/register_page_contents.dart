@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 
 import '../../common_widgets/auth_button.dart';
@@ -99,6 +100,13 @@ class _RegisterPageContentsState extends State<RegisterPageContents> {
                 hintText: 'Enter your email',
                 textEditingController: _emailTextEditingController,
                 inputType: TextInputType.emailAddress,
+                suffix:
+                    EmailValidator.validate(_emailTextEditingController.text)
+                        ? Icon(
+                            Icons.check,
+                            color: Colors.green,
+                          )
+                        : null,
               ),
             ),
             Padding(

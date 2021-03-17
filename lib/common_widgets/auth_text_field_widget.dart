@@ -8,6 +8,7 @@ class AuthTextFieldWidget extends StatefulWidget {
     @required this.textEditingController,
     this.isPassword,
     this.inputType,
+    this.suffix,
   }) : super(key: key);
 
   final String labelText;
@@ -15,6 +16,7 @@ class AuthTextFieldWidget extends StatefulWidget {
   final TextEditingController textEditingController;
   final bool isPassword;
   final TextInputType inputType;
+  final Icon suffix;
 
   @override
   _AuthTextFieldWidgetState createState() => _AuthTextFieldWidgetState();
@@ -29,6 +31,7 @@ class _AuthTextFieldWidgetState extends State<AuthTextFieldWidget> {
       keyboardType:
           widget.inputType == null ? TextInputType.text : widget.inputType,
       decoration: InputDecoration(
+        suffixIcon: widget.suffix,        
         isDense: true,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
